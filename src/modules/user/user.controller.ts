@@ -112,6 +112,10 @@ export const UserController = {
 
         try {
             
+            replay.removeHeader("authorization")
+            replay.status(200)
+            return {success: true, message: "Logout success", statusCode: 200}
+
         } catch (error) {
             handleError(replay , `logout handler error ${error}`)
         }

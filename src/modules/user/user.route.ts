@@ -8,5 +8,6 @@ export const userRoutes = (fastify: FastifyInstance) => {
 
     fastify.post("/sign", signBodyValidator ,UserController.sign)
     fastify.post("/login" , loginBodyValidator , UserController.login)
+    fastify.post("/logout" , UserController.logout)
 
 }
