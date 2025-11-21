@@ -1,6 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { UserService } from "./user.service.js";
 import { handleError } from "../../utils/handleError.js";
+import { generateToken } from "../../utils/generateToken.js";
 
 //User controller
 export const UserController = {
@@ -36,13 +37,25 @@ export const UserController = {
 
             const newUser = await UserService.createUser(fullname.trim(), email.trim(), password.trim())
 
-            reply.status(201)
-            return { success: true, message: "User created", user: newUser, statusCode: 201 }
+            if(newUser){
+
+                //Generating token
+                const token = await generateToken(reply , newUser._id, newUser.fullname)
+
+                reply.status(201)
+                reply.header("authorization" , token)
+                return { success: true, message: "User created", user: newUser, statusCode: 201 , authToken: token}
+
+            }
+
 
         }
         catch (error) {
             handleError(reply, `addUserHandler error : ${error}`)
         }
 
+    },
+    async login(request: FastifyRequest, reply: FastifyReply){
+        
     }
 }

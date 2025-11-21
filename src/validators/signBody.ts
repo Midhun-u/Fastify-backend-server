@@ -1,7 +1,7 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 
-//Validator for checking body of request object
-export const userBodyValidator = {
+//Validator for checking body of request object of sign route
+export const signBodyValidator = {
     schema: {
         type: "object",
         body: {

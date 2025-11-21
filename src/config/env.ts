@@ -1,6 +1,4 @@
-import fastifyPlugin from "fastify-plugin"
-import FastifyEnv from "@fastify/env"
-
+//ENV Schema
 const EnvSchema = {
     type: "object",
     required: ['PORT' , 'DATABASE_URL'],
@@ -11,8 +9,16 @@ const EnvSchema = {
         },
         DATABASE_URL: {
             type: "string",
-            default: ''
-        }
+            default: ""
+        },
+        CLIENT_URL: {
+            type: "string",
+            default: ""
+        },
+        JWT_SECRET: {
+            type: "string",
+            default: ""
+        } 
     }
 }
 
