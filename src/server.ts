@@ -1,6 +1,7 @@
 import Fastify from "fastify"
-import { userRoutes } from "./modules/user/user.route.js"
+import { userRouter } from "./modules/user/user.route.js"
 import { initPlugins } from "./plugins/index.js"
+import { todoRouter } from "./modules/todo/todo.route.js"
 
 //Create Fastify instance
 const app = Fastify({
@@ -12,7 +13,8 @@ const port: number = 5000
 app.register(initPlugins)
 
 //Routes
-app.register(userRoutes , {prefix: "/api/user"})
+app.register(userRouter , {prefix: "/api/user"})
+app.register(todoRouter , {prefix: "/api/todo"})
 
 //Listerning port
 app.listen({port: port} , (error , address) => {

@@ -1,5 +1,6 @@
 import { hashPassword } from "../../utils/password.js"
 import { User } from "./user.model.js"
+import { ObjectId } from "@fastify/mongodb"
 
 //User service
 export const UserService = {
@@ -25,6 +26,18 @@ export const UserService = {
             email: newUser.email,
             createdAt: newUser.createdAt
         }
+
+    },
+    async getUserById(id: ObjectId | string){
+
+        const user = await User.findOne({_id: id})
+        return user
+
+    },
+    async getUserByIdWithoutPassword(id: ObjectId | string){
+
+        const user = await User.findOne({_id : id} , {password: 0})
+        return user
 
     }
 

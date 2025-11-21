@@ -4,6 +4,7 @@ import { handleError } from "../../utils/handleError.js";
 import { generateToken } from "../../utils/generateToken.js";
 import { comparePassword } from "../../utils/password.js";
 import { checkEmailIsValid } from "../../utils/checkEmail.js";
+import type { JWT_PAYLOAD } from "../../types/jwt.js";
 
 //User controller
 export const UserController = {
@@ -118,6 +119,25 @@ export const UserController = {
 
         } catch (error) {
             handleError(replay , `logout handler error ${error}`)
+        }
+
+    },
+    async getUser(request: FastifyRequest, reply: FastifyReply){
+
+        try {
+           
+            const authUser = request.user as JWT_PAYLOAD
+            
+            if(!authUser){
+                reply.status(400)
+                return {success: false , error: "User is missing" , statusCode: 400}
+            }
+
+            const user = await UserService.getUserByIdWithoutPassword(authUser.id)
+            return {success: true, message: "Success" , user: user, statusCode: 200}
+            
+        } catch (error) {
+            handleError(reply, `getUser handler error ${error}`)
         }
 
     }
