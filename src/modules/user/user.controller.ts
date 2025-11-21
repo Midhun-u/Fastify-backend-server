@@ -2,6 +2,8 @@ import type { FastifyReply, FastifyRequest } from "fastify";
 import { UserService } from "./user.service.js";
 import { handleError } from "../../utils/handleError.js";
 import { generateToken } from "../../utils/generateToken.js";
+import { comparePassword } from "../../utils/password.js";
+import { checkEmailIsValid } from "../../utils/checkEmail.js";
 
 //User controller
 export const UserController = {
@@ -27,6 +29,13 @@ export const UserController = {
                 return { success: false, error: "Password must be either atleast 6 letters or above" }
             }
 
+            const isEmailValid = checkEmailIsValid(email)
+
+            if(!isEmailValid){
+                reply.status(400)
+                return {success: false , error: "Invalid email", statusCode: 400}
+            }
+
             // checking the email already exists
             const checkEmail = await UserService.getUserByEmail(email.trim())
 
@@ -43,7 +52,6 @@ export const UserController = {
                 const token = await generateToken(reply , newUser._id, newUser.fullname)
 
                 reply.status(201)
-                reply.header("authorization" , token)
                 return { success: true, message: "User created", user: newUser, statusCode: 201 , authToken: token}
 
             }
@@ -56,6 +64,57 @@ export const UserController = {
 
     },
     async login(request: FastifyRequest, reply: FastifyReply){
-        
+
+        try {
+            
+            const {email, password} = await request.body as {email : string, password: string} || {}
+
+            if(!email || !password){
+                reply.status(400)
+                return {success: false , error: "Email and Password are must be provided" , statusCode: 400}
+            }
+
+            const isEmailValid = checkEmailIsValid(email)
+
+            if(!isEmailValid){
+                reply.status(400)
+                return {success: false , error: "Email is invalid" , statusCode: 400}
+            }
+
+            //Checking user registerd
+            const user = await UserService.getUserByEmail(email)
+
+            if(!user){
+                reply.status(404)
+                return {success: false, error: "User is not found" , statusCode: 404}
+            }
+
+            //Checking password is correct
+            const isPasswordCorrect = await comparePassword(password, user.password)
+
+            if(!isPasswordCorrect){
+                reply.status(400)
+                return {success: false , error: "Password is incorrect" , statusCode: 400}
+            }
+
+            //Generating token
+            const token = await generateToken(reply, user._id, user.fullname)
+            
+            reply.status(200)
+            return {success: false, message: "Login success", statusCode: 200, authToken: token}
+
+        } catch (error) {
+            handleError(reply, `login handler error ${error}`)
+        }
+
+    },
+    async logout(request: FastifyRequest, replay: FastifyReply){
+
+        try {
+            
+        } catch (error) {
+            handleError(replay , `logout handler error ${error}`)
+        }
+
     }
 }

@@ -9,6 +9,8 @@ export const generateToken = async (reply: FastifyReply, id: string | ObjectId, 
         fullname: fullname
     }
     const token = await reply.jwtSign(payload)
+    reply.header("authorization" , token)
+    
     return token
 
 }

@@ -6,7 +6,7 @@ export const UserService = {
 
     async getUserByEmail(email: string){
 
-        const user = await User.findOne({email: email} , {email: 1, _id: 0})
+        const user = await User.findOne({email: email})
         return user
 
     },
