@@ -13,7 +13,6 @@ export const loginBodyValidator = {
         },
     },
     errorHandler(error: Error , request: FastifyRequest, replay: FastifyReply){
-        console.log(error)
         replay.status(400)
         return {success: false , error: "Invalid body" , statusCode: 400}
     }

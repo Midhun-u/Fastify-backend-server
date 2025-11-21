@@ -2,10 +2,11 @@ import Fastify from "fastify"
 import { userRouter } from "./modules/user/user.route.js"
 import { initPlugins } from "./plugins/index.js"
 import { todoRouter } from "./modules/todo/todo.route.js"
+import { loggerConfig } from "./config/logger.js"
 
 //Create Fastify instance
 const app = Fastify({
-    logger: true
+    logger: loggerConfig
 })
 const port: number = 5000
 

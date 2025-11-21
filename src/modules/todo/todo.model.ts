@@ -13,9 +13,10 @@ const todoSchema = new Schema({
     },
     completed: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true
     }
 
-})
+} , {timestamps: true, versionKey: false})
 
 export const Todo = model("Todo" , todoSchema)

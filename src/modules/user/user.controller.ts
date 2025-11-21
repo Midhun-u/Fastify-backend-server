@@ -109,16 +109,16 @@ export const UserController = {
         }
 
     },
-    async logout(request: FastifyRequest, replay: FastifyReply){
+    async logout(request: FastifyRequest, reply: FastifyReply){
 
         try {
             
-            replay.removeHeader("authorization")
-            replay.status(200)
+            reply.removeHeader("authorization")
+            reply.status(200)
             return {success: true, message: "Logout success", statusCode: 200}
 
         } catch (error) {
-            handleError(replay , `logout handler error ${error}`)
+            handleError(reply , `logout handler error ${error}`)
         }
 
     },
