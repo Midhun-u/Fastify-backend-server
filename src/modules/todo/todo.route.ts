@@ -8,5 +8,7 @@ export const todoRouter = (fastify: FastifyInstance) => {
 
     fastify.post("/add-todo" , todoValidator , TodoController.addTodo)
     fastify.get("/get-todos" , {preHandler: [authMiddleware]} ,TodoController.getTodos)
+    fastify.put("/update-todo/:todoId" , {preHandler: [authMiddleware]} , TodoController.updateTodo)
+    fastify.delete("/delete-todo/:todoId" , {preHandler: [authMiddleware]} , TodoController.deleteTodo)
 
 }

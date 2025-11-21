@@ -50,6 +50,51 @@ export const TodoController = {
             handleError(reply , `getTodos handler error ${error}`)
         }
 
+    },
+    async updateTodo(request: FastifyRequest, reply: FastifyReply){
+
+        const authUser = request.user as JWT_PAYLOAD
+        const {todoId} = request.params as {todoId: string}
+
+        if(!authUser){
+            reply.status(400)
+            return {success: false, error: "User is missing", statusCode: 400}
+        }
+
+        const updatedTodo = await TodoService.updateTodoById(todoId)
+        
+        return {success: true, message: "Todo updated", updatedTodo: updatedTodo, statusCode: 200}
+
+    },
+    async deleteTodo(request: FastifyRequest, reply: FastifyReply){
+
+        const authUser = request.user as JWT_PAYLOAD
+        const {todoId} = request.params as {todoId: string}
+
+        if(!authUser){
+            reply.status(400)
+            return {success: false, error: "User is missing", statusCode: 400}
+        }
+
+        if(!todoId){
+            reply.status(400)
+            return {success: false, error:"Todo id is missing", statusCode: 400}
+        }
+
+        //Checking if todo already deleted
+        const todo = await TodoService.getTodoById(todoId , authUser.id)
+
+        if(!todo){
+            reply.status(400)
+            return {success: false, error: "Todo is already deleted" , statusCode: 400}
+        }
+
+        const result = await TodoService.deleteTodoById(todoId , authUser.id)
+
+        if(result){
+            return {success: true, message: "Todo deleted", statusCode: 200}
+        }
+
     }
 
 }
