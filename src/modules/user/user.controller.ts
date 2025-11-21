@@ -5,7 +5,7 @@ import { handleError } from "../../utils/handleError.js";
 //User controller
 export const UserController = {
 
-    async addUser(request: FastifyRequest, reply: FastifyReply) {
+    async sign(request: FastifyRequest, reply: FastifyReply) {
 
         try {
 

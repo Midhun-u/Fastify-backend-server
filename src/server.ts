@@ -3,6 +3,7 @@ import { initEnvPlugin } from "./plugins/env.js"
 import { initDatabasePlugin } from "./plugins/db.js"
 import { userRoutes } from "./modules/user/user.route.js"
 import { corsPlugin } from "./plugins/cors.js"
+import { jwtPlugin } from "./plugins/jwt.js"
 
 //Create Fastify instance
 const app = Fastify({
@@ -14,6 +15,7 @@ const port: number = 5000
 app.register(initEnvPlugin)
 app.register(initDatabasePlugin)
 app.register(corsPlugin)
+app.register(jwtPlugin)
 
 //Routes
 app.register(userRoutes , {prefix: "/api/user"})

@@ -5,6 +5,6 @@ import { userBodyValidator } from "../../validators/userBody.js";
 //User routes
 export const userRoutes = (fastify: FastifyInstance) => {
 
-    fastify.post("/add-user", userBodyValidator ,UserController.addUser)
+    fastify.post("/sign", userBodyValidator ,UserController.sign)
 
 }
