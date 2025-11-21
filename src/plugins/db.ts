@@ -3,9 +3,9 @@ import type { ENV } from "../types/env.js";
 import { connectDatabase } from "../config/db.js";
 
 //Plugin for connecting database
-export const initDatabasePlugin = fastifyPlugin((fastify) => {
+export const initDatabasePlugin = fastifyPlugin(async (fastify) => {
 
     const URL = fastify.getEnvs<ENV>().DATABASE_URL
-    connectDatabase(URL)
+    await connectDatabase(URL)
 
 })
