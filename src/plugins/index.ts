@@ -5,11 +5,11 @@ import { corsPlugin } from "./cors.js";
 import { jwtPlugin } from "./jwt.js";
 
 //Plugins
-export const initPlugins = fastifyPlugin(async(fastify) => {
+export const initPlugins = fastifyPlugin((fastify) => {
 
-    await fastify.register(initEnvPlugin)
-    await fastify.register(initDatabasePlugin)
-    await fastify.register(corsPlugin)
-    await fastify.register(jwtPlugin)
+    fastify.register(initEnvPlugin)
+    fastify.register(initDatabasePlugin)
+    fastify.register(corsPlugin)
+    fastify.register(jwtPlugin)
 
 })

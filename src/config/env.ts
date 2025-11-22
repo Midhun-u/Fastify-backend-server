@@ -19,7 +19,7 @@ const EnvSchema = {
 }
 
 export const EnvOptions = {
+    dotenv: true,
     confKey: "config",
     schema: EnvSchema,
-    dotenv: true
 }
