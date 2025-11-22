@@ -7,6 +7,7 @@ It is a todo list backend project build using fastify web framework of Node js (
     - User can sign and login using their email and password
     - User can create, update and delete their todos
     - Implemented JWT(Json Web Token) authentication
+    - Implemented multistage containerization using Docker
 
 * Technologies
 
@@ -16,6 +17,7 @@ It is a todo list backend project build using fastify web framework of Node js (
     - MongoDB
     - Typescript
     - Git && Github
+    - Docker (optional)
 
 # Project Installation
 
@@ -24,6 +26,7 @@ It is a todo list backend project build using fastify web framework of Node js (
     - Node js && npm
     - Mongodb
     - Git
+    - Docker (optional unless don't want to run container)
  
  * Installation
 
@@ -31,3 +34,8 @@ It is a todo list backend project build using fastify web framework of Node js (
     - cd Fastify-backend-server
     - npm install
     - npm run production
+
+ * For Running Docker container (optional)
+  
+   - sudo docker build -t app ./
+   - sudo docker --network host run app
