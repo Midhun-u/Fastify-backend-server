@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "node ./dist/src/server.js",
+    "start": "node ./build/src/server.js",
     "watch": "tsc --watch -p tsconfig.json",
-    "production": "tsc -p tsconfig.json && node ./dist/src/server.js",
-    "dev": "node --watch ./dist/src/server.js"
+    "production": "tsc -p tsconfig.json && node ./build/src/server.js",
+    "dev": "node --watch ./build/src/server.js"
   },
   "keywords": [],
   "author": "",

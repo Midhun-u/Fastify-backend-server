@@ -10,5 +10,6 @@ export const todoRouter = (fastify: FastifyInstance) => {
     fastify.get("/get-todos" , {preHandler: [authMiddleware]} ,TodoController.getTodos)
     fastify.put("/update-todo/:todoId" , {preHandler: [authMiddleware]} , TodoController.updateTodo)
     fastify.delete("/delete-todo/:todoId" , {preHandler: [authMiddleware]} , TodoController.deleteTodo)
+    fastify.get("/get-todo/:todoId" , {preHandler: [authMiddleware]}, TodoController.getTodo)
 
 }

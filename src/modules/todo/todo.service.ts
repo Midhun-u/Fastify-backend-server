@@ -38,6 +38,6 @@ export const TodoService = {
         const todo = await Todo.findOne({_id: todoId, userId: userId})
         return todo
 
-    }
+    },
 
 }

@@ -95,6 +95,31 @@ export const TodoController = {
             return {success: true, message: "Todo deleted", statusCode: 200}
         }
 
+    },
+    async getTodo(request: FastifyRequest, reply: FastifyReply){
+
+        try {
+            
+            const {todoId} = request.params as {todoId: string}
+            const authUser = request.user as JWT_PAYLOAD
+
+            if(!authUser){
+                reply.status(400)
+                return {success: false, error: "User is missing", statusCode: 400}
+            }
+
+            if(!todoId){
+                reply.status(400)
+                return {success: false, error: "Todo id is missing", statusCode: 400}
+            }
+            
+            const todo = await TodoService.getTodoById(todoId , authUser.id)
+            return {success: true, message: "Success", todo: todo, statusCode: 200}
+
+        } catch (error) {
+            handleError(reply, `getTodo handler error ${error}`)
+        }
+
     }
 
 }

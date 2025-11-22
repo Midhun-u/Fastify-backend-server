@@ -1,12 +1,8 @@
 //ENV Schema
 const EnvSchema = {
     type: "object",
-    required: ['PORT' , 'DATABASE_URL'],
+    required: ['DATABASE_URL' , 'JWT_SECRET'],
     properties: {
-        PORT: {
-            type: "string",
-            default: 5000
-        },
         DATABASE_URL: {
             type: "string",
             default: ""
