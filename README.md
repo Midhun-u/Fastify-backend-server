@@ -17,7 +17,7 @@ It is a todo list backend project build using fastify web framework of Node js (
     - MongoDB
     - Typescript
     - Git && Github
-    - Docker (optional)
+    - Docker
 
 # Project Installation
 
